@@ -41,5 +41,5 @@ jobs:
               run: | 
                 mvn sonar:sonar \
                     -Dsonar.projectKey=wimalaweeraamc214239j_lab02 \
-                    -Dsonar.organization=WimalaweeraAMC214239J \
+                    -Dsonar.organization=wimalaweeraamc214239j \
                     -Dsonar.host.url=https://sonarcloud.io 
