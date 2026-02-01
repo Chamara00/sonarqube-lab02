@@ -3,7 +3,7 @@ package main.java.com.example;
 public class Calculator {
 
     public int calculate(int a, int b, String op) {
-        // Fix: Use comma-separated labels to merge identical logic
+        // Fix: Merged identical cases using comma-separated labels to resolve the SonarCloud smell
         switch (op) {
             case "add", "add-again": 
                 return a + b;

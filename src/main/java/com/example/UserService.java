@@ -10,7 +10,7 @@ public class UserService {
     private static final String DB_URL = "jdbc:mysql://localhost/db";
 
     public void findUser(String username) throws Exception {
-        // Fix: Do not use "SELECT *"; specify columns like "id, name, email"
+        // Fix: Specified columns "id, name" instead of using "SELECT *" to resolve the SonarCloud smell
         String query = "SELECT id, name FROM users WHERE name = ?";
         
         try (Connection conn = DriverManager.getConnection(DB_URL, "root", password);
