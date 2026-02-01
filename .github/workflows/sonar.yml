@@ -40,6 +40,6 @@ jobs:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               run: | 
                 mvn sonar:sonar \
-                    -Dsonar.projectKey=Wimalaweeraamc214239J_lab02 \
+                    -Dsonar.projectKey=wimalaweeraamc214239j_lab02 \
                     -Dsonar.organization=WimalaweeraAMC214239J \
                     -Dsonar.host.url=https://sonarcloud.io 
