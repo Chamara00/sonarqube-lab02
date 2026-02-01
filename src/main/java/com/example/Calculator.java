@@ -3,13 +3,11 @@ package main.java.com.example;
 public class Calculator {
 
     public int calculate(int a, int b, String op) {
-        // Fix: Use switch to reduce cyclomatic complexity and magic string issues
+        // Fix: Use comma-separated labels to merge identical logic
         switch (op) {
-            case "add":
-            case "add-again": // Handled under one case to remove duplicated logic
+            case "add", "add-again": 
                 return a + b;
-            case "sub":
-            case "sub-again":
+            case "sub", "sub-again":
                 return a - b;
             case "mul":
                 return a * b;
@@ -18,14 +16,12 @@ public class Calculator {
             case "mod":
                 return a % b;
             case "pow":
-                return (int) Math.pow(a, b); // Use built-in method to simplify
+                return (int) Math.pow(a, b);
             default:
                 return 0;
         }
     }
 
-    // Fix: Removed duplicate addNumbers, sumValues, and addAgain methods.
-    // Use this single method for all addition needs.
     public int add(int a, int b) {
         return a + b;
     }
