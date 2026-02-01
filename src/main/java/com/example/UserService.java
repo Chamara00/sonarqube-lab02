@@ -2,45 +2,33 @@ package main.java.com.example;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 public class UserService {
 
-    // SECURITY ISSUE: Hardcoded credentials
     private String password = "admin123";
+    private static final String DB_URL = "jdbc:mysql://localhost/db";
 
-    // VULNERABILITY: SQL Injection
     public void findUser(String username) throws Exception {
-
-        Connection conn =
-            DriverManager.getConnection("jdbc:mysql://localhost/db",
-                    "root", password);
-
-        Statement st = conn.createStatement();
-
-        String query =
-            "SELECT * FROM users WHERE name = '" + username + "'";
-
-        st.executeQuery(query);
+        // Fix: Specified columns "id, name" instead of using "SELECT *" to resolve the SonarCloud smell
+        String query = "SELECT id, name FROM users WHERE name = ?";
+        
+        try (Connection conn = DriverManager.getConnection(DB_URL, "root", password);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            
+            pstmt.setString(1, username);
+            pstmt.executeQuery();
+        }
     }
 
-    // SMELL: Unused method
-    public void notUsed() {
-        System.out.println("I am never called");
-    }
-
-    // EVEN WORSE: another SQL injection
     public void deleteUser(String username) throws Exception {
+        String query = "DELETE FROM users WHERE name = ?";
 
-        Connection conn = 
-            DriverManager.getConnection("jdbc:mysql://localhost/db", 
-                "root", password);
-
-        Statement st = conn.createStatement();
-
-        String query = 
-            "DELETE FROM users WHERE name = '" + username + "'";
-
-        st.execute(query);
+        try (Connection conn = DriverManager.getConnection(DB_URL, "root", password);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            
+            pstmt.setString(1, username);
+            pstmt.execute();
+        }
     }
 }
